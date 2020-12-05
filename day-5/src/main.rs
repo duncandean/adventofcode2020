@@ -9,12 +9,12 @@ fn main() -> Result<(), io::Error> {
     let filepath = &env::args().collect::<Vec<String>>()[1];
     let boarding_passes = read_lines(filepath)?.collect::<Result<Vec<String>, io::Error>>()?;
 
-    let mut sorted_seat = boarding_passes
+    let mut seat_ids = boarding_passes
         .iter()
         .map(|pass| boarding_pass_to_seat_id(pass))
         .collect::<Vec<i32>>();
-    sorted_seat.sort();
-    sorted_seat.windows(2).for_each(|pair| {
+    seat_ids.sort();
+    seat_ids.windows(2).for_each(|pair| {
         if pair[1] - pair[0] > 1 {
             println!("My seat: {}", pair[0] + 1);
         }
